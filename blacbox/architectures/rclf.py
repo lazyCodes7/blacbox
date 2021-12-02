@@ -56,20 +56,15 @@ class RaceClassifier:
         self.race_outputs = self.outputs[:7]
         self.gender_outputs = self.outputs[7:9]
         self.age_outputs = self.outputs[9:18]
-
         race_score = np.exp(self.race_outputs) / np.sum(np.exp(self.race_outputs))
         gender_score = np.exp(self.gender_outputs) / np.sum(np.exp(self.gender_outputs))
         age_score = np.exp(self.age_outputs) / np.sum(np.exp(self.age_outputs))
-
         race_pred = np.argmax(race_score, dim = 1)
         gender_pred = np.argmax(gender_score, dim = 1)
         age_pred = np.argmax(age_score)
-
         return (race_pred,gender_pred,age_pred)
         '''
     
     def __call__(self, image):
         preds = self.predict(image)
         return self.grad_outputs
-
-
