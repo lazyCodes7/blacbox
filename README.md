@@ -59,6 +59,35 @@ pip install git+https://github.com/lazyCodes7/blacbox.git
 ```
 pip install -i https://test.pypi.org/simple/ blacbox==0.1.0
 ```
+## Some example usages.
+### 1. Saliency Maps
+A saliency map is a way to measure the spatial support of a particular class in each image. It is the oldest and most frequently used explanation method for interpreting the predictions of convolutional neural networks. The saliency map is built using gradients of the output over the input.
+Paper link: https://arxiv.org/abs/1911.11293
+
+```python
+
+from blacbox import Saliency
+import matplotlib.pyplot as plt
+
+# Load a model
+model = models.resnet50(pretrained = True)
+
+# Pass the model to Saliency generator
+maps = Saliency(
+  model, 
+  device = 'cuda'
+)
+
+# Images.shape = (B,C,H,W), class_idx = used to specify the class to calculate gradients against
+# saliencie return_type = np.ndarray(B,H,W,C)
+saliencie = maps.reveal(
+  images = images, 
+  class_idx = "keepmax"
+)
+
+```
+### Input image
+
 
 
 
