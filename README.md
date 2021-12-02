@@ -59,10 +59,7 @@ Consider a scenario where a military commander wants to identify enemy tanks and
 ```
 pip install git+https://github.com/lazyCodes7/blacbox.git
 ```
-2. Install from testPyPi(Working towards a stable version to release on PyPi)
-```
-pip install -i https://test.pypi.org/simple/ blacbox==0.1.0
-```
+Note: Soon a stable version will be released to PyPI
 ## Usage
 ### 1. Saliency Maps
 A saliency map is a way to measure the spatial support of a particular class in each image. It is the oldest and most frequently used explanation method for interpreting the predictions of convolutional neural networks. The saliency map is built using gradients of the output over the input.
