@@ -96,7 +96,6 @@ saliencie = maps.reveal(
 Guided backpropagation is an interesting variation of vanilla backprop where we zero out the negative gradients during backprop instead of transferring because of the fact that we are only interested in the positive influences.
 Paper link: https://arxiv.org/abs/1412.6806
 
-### Provide batches
 ```python
 from blacbox import GuidedBackPropagation
 from blacbox import RaceClassifier
@@ -123,7 +122,57 @@ grads = gbp.reveal(
   path = 'blacbox/architectures/images/dog.png'
 )
 ```
-##
+### Inputs
+<img src="images/gbp_input.png"><img src="images/gbp_another_ex_input.png">
 
+### Outputs
+<img src="images/gbp_output.png"><img src="images/gbp_another_ex_output.png">
 
+### 3. Grad-CAM
+Grad-CAM is another interesting way of visualizing the activation maps based on the gradients of a target and provides a coarse heatmap based on that.
+Paper link: https://arxiv.org/abs/1610.02391
 
+```python
+from blacbox import RaceClassifier
+from blacbox import GradCAM
+
+## Initalize
+clf = RaceClassifier()
+## Provide batch of images
+images = torch.stack((image1, image2), axis = 0)
+
+## For interpolation refer to torch.interpolate methods
+gcam = GCAM(
+    model = clf.model,
+    interpolate = 'bilinear',
+    device = 'cuda'
+)
+
+## Generating the heatmaps
+heatmaps = gcam.reveal(
+  images = images, 
+  module = clf.model.layer4[0].conv1,
+  class_idx = 'keepmax',
+  colormap = 'hot'
+ )
+
+# module: refers to the module to compute gradients and fmaps
+# colormap: type of colormap to apply use gcam.colormap_dict to see valid types
+
+## Overlay on images
+ret_images = gcam.overlay(
+  images = images,
+  heatmaps = heatmaps,
+  is_np = True
+)
+# is_np: To convert images to numpy for concat
+
+```
+### Input
+<img src = "images/gcam_input.png">
+
+### Heatmaps
+<img src = "images/gcam_output.png"><img src="images/gcam_hot.png">
+
+### Overlay
+<img src = "images/gcam_output.png"><img src="images/gcam_overlay.png">
