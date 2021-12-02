@@ -21,8 +21,6 @@ Making CNNs interpretable. Well because accuracy is not the best anymore
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#examples">Examples</a></li>
-    <li><a href="#watch-a-demo">Watch a demo</a>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -51,6 +49,11 @@ Consider a scenario where a military commander wants to identify enemy tanks and
 
 <!-- GETTING STARTED -->
 ## Getting Started
+
+### Prerequisites
+- Python versions 3.6-3.10
+
+### Installation
 1. Install the latest version from github
 ```
 pip install git+https://github.com/lazyCodes7/blacbox.git
@@ -59,7 +62,7 @@ pip install git+https://github.com/lazyCodes7/blacbox.git
 ```
 pip install -i https://test.pypi.org/simple/ blacbox==0.1.0
 ```
-## Some example usages.
+## Usage
 ### 1. Saliency Maps
 A saliency map is a way to measure the spatial support of a particular class in each image. It is the oldest and most frequently used explanation method for interpreting the predictions of convolutional neural networks. The saliency map is built using gradients of the output over the input.
 Paper link: https://arxiv.org/abs/1911.11293
@@ -176,3 +179,37 @@ ret_images = gcam.overlay(
 
 ### Overlay
 <img src = "images/gcam_output.png"><img src="images/gcam_overlay.png">
+
+<!-- ROADMAP -->
+## Roadmap
+
+See the [open issues](https://github.com/lazyCodes7/blacbox/issues) for a list of proposed features (and known issues).
+
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Rishab Mudliar - [@cheesetaco19](https://twitter.com/cheesetaco19) - rishabmudliar@gmail.com
+
+Telegram: [lazyCodes7](https://t.me/lazyCodes7)
