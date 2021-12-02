@@ -68,7 +68,7 @@ Paper link: https://arxiv.org/abs/1911.11293
 
 from blacbox import Saliency
 import matplotlib.pyplot as plt
-
+import torchvison.models as models
 # Load a model
 model = models.resnet50(pretrained = True)
 
@@ -87,7 +87,43 @@ saliencie = maps.reveal(
 
 ```
 ### Input image
+<img src="images/saliency_input.png">
 
+### Output saliency
+<img src="images/saliency_output.png">
+
+### 2. Guided Backpropagation
+Guided backpropagation is an interesting variation of vanilla backprop where we zero out the negative gradients during backprop instead of transferring because of the fact that we are only interested in the positive influences.
+Paper link: https://arxiv.org/abs/1412.6806
+
+### Provide batches
+```python
+from blacbox import GuidedBackPropagation
+from blacbox import RaceClassifier
+import torchvison.models as models
+
+clf = RaceClassifier()
+
+## Provide batch of images
+images = torch.stack((image1, image2), axis = 0)
+
+## Notice we are providing clf.model, the reason being clf itself that we used isn't of type nn.Module
+gbp = GuidedBackPropagation(
+  model = clf.model,
+  device = device
+)
+
+## Provide batch
+grads = gbp.reveal(
+  images = images
+)
+
+## Provide path
+grads = gbp.reveal(
+  path = 'blacbox/architectures/images/dog.png'
+)
+```
+##
 
 
 
