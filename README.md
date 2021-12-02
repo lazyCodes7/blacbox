@@ -189,7 +189,14 @@ clf = RaceClassifier(model_path = "<your path here>")
 ```
 
 ## Example
-View the example notebook on colab
+1. Clone the repo.
+```
+git clone https://github.com/lazyCodes7/blacbox.git
+```
+2. Use jupyter to try out the notebook titled blacbox.ipynb!
+```
+jupyter notebook
+```
 
 <!-- ROADMAP -->
 ## Roadmap
