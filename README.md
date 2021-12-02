@@ -21,6 +21,7 @@ Making CNNs interpretable. Well because accuracy is not the best anymore
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#example">Example</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -179,6 +180,16 @@ ret_images = gcam.overlay(
 
 ### Overlay
 <img src = "images/gcam_output.png"><img src="images/gcam_overlay.png">
+
+### Note:
+For using raceclassifier please download the pretrained_model [here](https://github.com/lazyCodes7/blacbox/tree/main/blacbox/pretrained_models) and provide it as a path
+```python
+from blacbox import RaceClassifier
+clf = RaceClassifier(model_path = "<your path here>")
+```
+
+## Example
+View the example notebook on colab
 
 <!-- ROADMAP -->
 ## Roadmap
