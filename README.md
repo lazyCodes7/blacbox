@@ -32,7 +32,7 @@ Making CNNs interpretable. Well because accuracy is not the best anymore
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Consider a scenario where a military commander wants to identify enemy tanks and he uses an object-detetection algorithm. So based on some data he reports an accuracy of 99%. Naturally he would be happy(enemies definetely wouldn't). But when he puts this algorithm to use he fails terribly. Turns out the data used had images of tanks only at night but not during day so instead of learning about the tank the algorithm learned to distinguish day from night. He would have lost but thanks to blacbox he uses our techniques to save his day! 
+Consider a scenario where a military commander wants to identify enemy tanks and he uses an object-detection algorithm. So based on some data he reports an accuracy of 99%. Naturally he would be happy(enemies definetely wouldn't). But when he puts this algorithm to use he fails terribly. Turns out the data used had images of tanks only at night but not during day so instead of learning about the tank the algorithm learned to distinguish day from night. He would have lost but thanks to blacbox he uses our techniques to save his day! 
 
 
 ### Built With
