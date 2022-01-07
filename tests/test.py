@@ -1,7 +1,6 @@
 import unittest
 import math
 from blacbox import GCAM
-from blacbox import RaceClassifier
 from blacbox import Saliency
 from blacbox import GuidedBackPropagation
 import numpy as np
@@ -19,19 +18,19 @@ class Tester(unittest.TestCase):
         image2 = self.preprocess_image(image2)
         self.images = torch.stack((image1, image2), axis = 0)
         self.model_test1 = models.resnet18(pretrained = True)
-        self.model_test2 = RaceClassifier()
+        self.model_test2 = models.resnet50(pretrained=True)
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
     def test_gcam(self):
         gcam = GCAM(
-            model = self.model_test2.model,
+            model = self.model_test2,
             interpolate = 'bilinear',
             device = self.device
         )
         heatmap = gcam.reveal(
             images = self.images, 
-            module = self.model_test2.model.layer4[0].conv1, 
+            module = self.model_test2.layer4[0].conv1, 
             class_idx = 'keepmax', 
             colormap = 'hot'
         )
