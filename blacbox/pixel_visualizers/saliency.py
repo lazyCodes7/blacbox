@@ -4,7 +4,6 @@ import torch
 import torchvision.transforms as transforms
 import torch.nn.functional as F
 import torch.nn as nn
-import matplotlib.pyplot as plt
 import cv2
 import logging
 import numpy
