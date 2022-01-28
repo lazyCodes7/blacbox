@@ -62,7 +62,14 @@ class GCAM:
         def hook(module, grad_in, grad_out):
             self.gradients[key] = grad_out[0]
         return hook
-    def reveal(self, images = None, module = None, class_idx = 0, path = None, colormap = "jet"):
+    def reveal(
+        self, 
+        images = None, 
+        module = None, 
+        class_idx = 0, 
+        path = None, 
+        colormap = "jet"
+        ):
         '''
             Description: Where it all takes place and we get the output visualize a CNN layer.
 
@@ -169,7 +176,7 @@ class GCAM:
         else:
             raise AttributeError("Preprocessing requires a np.ndarray")
 
-    def retrieve_gcams(self, images, class_idx, key, colormap):
+    def retrieve_gcams(self, images, class_idx, key, colormap, apply_cmap = True):
         """
         Retrieving gcams from the images provided
         """
