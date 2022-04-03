@@ -4,4 +4,3 @@ from blacbox.pixel_visualizers import GuidedBackPropagation
 from blacbox.pixel_visualizers import Saliency
 from blacbox.architectures import RaceClassifier
 from blacbox.activation_visualizers import GCAM_plus
-from blacbox.activation_visualizers import RISE

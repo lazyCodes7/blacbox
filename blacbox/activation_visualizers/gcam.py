@@ -5,7 +5,6 @@ import torchvision.transforms as transforms
 import torch.nn.functional as F
 import torch.nn as nn
 import cv2
-from blacbox.utils.load_image import load_image 
 class GCAM:
     def __init__(self, model, interpolate = 'bilinear', device = 'cpu'):
         '''
@@ -112,16 +111,32 @@ class GCAM:
                 )
         '''
         # Raise error if both path and images are provided
-        images = load_image(images, path)
-        if(isinstance(module, nn.Module)):
-            key = str(module)
-            self.ac_handler = module.register_forward_hook(self.get_activations(key))
-            self.grad_handler = module.register_backward_hook(self.get_gradients(key))
-            gcams = self.retrieve_gcams(images, class_idx, key, colormap)
-            return gcams
+        if(path!=None and images!=None):
+            raise ValueError("Image batches cannot be passed when path is provided")
+
+        # If path is provided
+        elif(path!=None):
+            images = cv2.imread(path)
+            images = cv2.cvtColor(images, cv2.COLOR_BGR2RGB)
+            images = self.preprocess_image(images).unsqueeze(0)
+
+        # If batches of image is provided
+        if(images!=None):
+            if(isinstance(images, torch.Tensor) == False):
+                raise ValueError("reveal() expects images to be of type tensor with shape (B,C,H,W)")
+            if(isinstance(module, nn.Module)):
+                key = str(module)
+                self.ac_handler = module.register_forward_hook(self.get_activations(key))
+                self.grad_handler = module.register_backward_hook(self.get_gradients(key))
+                gcams = self.retrieve_gcams(images, class_idx, key, colormap)
+                return gcams
+            else:
+                error = "Module argument expects variable of type nn.Module"
+                raise ValueError(error)
+        
+        # If None then raise errors
         else:
-            error = "Module argument expects variable of type nn.Module"
-            raise ValueError(error)
+            raise ValueError("Either path or images need to be provided to reveal GCAM visualization.")
 
     @staticmethod
     def overlay(heatmaps, images, influence = 0.3, is_np = True):
@@ -137,6 +152,30 @@ class GCAM:
             )
         superimposed_img = heatmaps*(influence) + images
         return superimposed_img.astype(int)
+
+    def preprocess_image(self, images):
+        '''
+            Description:
+            Takes in an images and applies some transformations to it
+
+            Args:
+            images -> np.ndarray
+
+        '''
+        if(isinstance(images, np.ndarray)):
+            transform = transforms.Compose([
+                            transforms.ToPILImage(),
+                            transforms.Resize((224, 224)),
+                            transforms.ToTensor(),
+                            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+            ])
+
+            images = transform(images)
+            return images
+
+        else:
+            raise AttributeError("Preprocessing requires a np.ndarray")
+
     def retrieve_gcams(self, images, class_idx, key, colormap, apply_cmap = True):
         """
         Retrieving gcams from the images provided
