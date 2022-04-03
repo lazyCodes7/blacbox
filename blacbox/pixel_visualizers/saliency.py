@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import torch
 import torchvision.transforms as transforms
+from blacbox.utils.load_image import load_image
 import torch.nn.functional as F
 import torch.nn as nn
 import cv2
@@ -45,50 +46,9 @@ class Saliency:
             '0-len(output)' -> For visualizing a certain output
 
         '''
-
-        # Raise error if both path and images are provided
-        if(path!=None and images!=None):
-            raise ValueError("Image batches cannot be passed when path is provided")
-
-        # If path is provided
-        elif(path!=None):
-            images = cv2.imread(path)
-            images = cv2.cvtColor(images, cv2.COLOR_BGR2RGB)
-            images = self.preprocess_image(images)
-
-        # If batches of image is provided
-        if(images!=None):
-            saliencies = self.retrieve_saliencies(images, class_idx)
-            return np.array(saliencies)
-
-        # If None then raise errors
-        else:
-            raise AttributeError("Either path or images need to be provided to reveal Saliency visualization.")
-    
-    def preprocess_image(self, image):
-        '''
-            Description:
-            Takes in an image and applies some transformations to it
-
-            Args:
-            image -> np.ndarray
-
-        '''
-        if(isinstance(image, numpy.ndarray)):
-            transform = transforms.Compose([
-                            transforms.ToPILImage(),
-                            transforms.Resize((224, 224)),
-                            transforms.ToTensor(),
-                            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-            ])
-
-            image = transform(image)
-            image = image.unsqueeze(0)
-            return image
-
-        else:
-            raise ValueError("Preprocessing requires type np.ndarray")
-
+        images = load_image(images, path)
+        saliencies = self.retrieve_saliencies(images, class_idx)
+        return np.array(saliencies)
     def retrieve_saliencies(self, images, class_idx):
         saliencies = []
         for image in images:
