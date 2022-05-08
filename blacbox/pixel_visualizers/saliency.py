@@ -114,7 +114,7 @@ class Saliency:
                     raise ValueError(error)
             self.output[0, class_idx].backward()
             saliency, _ = torch.max(self.image.grad.data.abs(), dim=1)
-            saliency = saliency.reshape(224,224,1)
+            saliency = saliency.reshape(self.image.shape[2],self.image.shape[3],1)
             saliency = saliency.cpu().numpy()
             saliencies.append(saliency)
         return saliencies
