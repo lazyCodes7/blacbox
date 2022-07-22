@@ -40,7 +40,7 @@ class GCAM_plus(GCAM):
             
             # Freeing up the gradients from the images
             self.image.grad.zero_()
-            
+            weights = weights.squeeze().unsqueeze(0)
             b, k, u, v = weights.size()
             a_num = weights.pow(2)
             a_dm = weights.pow(2).mul(2) + \
